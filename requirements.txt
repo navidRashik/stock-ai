@@ -1,0 +1,48 @@
+#=================================================#
+# Common
+Django
+django-cors-headers
+django-elasticsearch-dsl
+djangorestframework
+djangorestframework-simplejwt
+whitenoise
+pytz
+requests
+psycopg2
+openapi-codec
+coreapi
+gunicorn
+
+# others
+django_heroku
+
+
+#=================================================#
+# workflow engine
+pyyaml
+river-admin
+django-river
+
+#=================================================#
+# AI and backtrader
+backtrader
+arctic
+pandas
+bdshare
+proviso
+backtraderbd
+
+
+#=================================================#
+# Asynchronous Process
+celery
+channels-redis
+channels
+daphne
+dj-database-url
+django-redis
+redis
+
+
+# asynchronus background scheduled process
+django-celery-beat
