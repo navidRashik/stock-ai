@@ -8,6 +8,6 @@ from .custom_claims import MyTokenObtainPairView
 
 urlpatterns = [
     # path('login/', TokenObtainPairView.as_view()),
-    path('login/', MyTokenObtainPairView.as_view()),
+    path('token/', MyTokenObtainPairView.as_view()),
     path('token/refresh/', TokenRefreshView.as_view()),
 ]

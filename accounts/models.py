@@ -9,11 +9,11 @@ GENDER_CHOICES = (
 
 
 class User(AbstractUser):
-    username = None
+    username = models.CharField(max_length=12, unique=True, blank=True, null=True)
     role = models.CharField(max_length=12, error_messages={
         'required': "Role must be provided"
     })
-    gender = models.CharField(max_length=10, blank=True, null=True, default="")
+    gender = models.CharField(choices=GENDER_CHOICES, max_length=10, blank=True, null=True, default="")
     email = models.EmailField(unique=True, blank=False,
                               error_messages={
                                   'unique': "A user with that email already exists.",
