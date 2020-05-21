@@ -7,10 +7,14 @@ GENDER_CHOICES = (
     ('male', 'Male'),
     ('female', 'Female'))
 
+ROLE_CHOICES = (
+    ('admin', 'Admin'),
+    ('user', 'User'))
+
 
 class User(AbstractUser):
     username = models.CharField(max_length=12, unique=True, blank=True, null=True)
-    role = models.CharField(max_length=12, error_messages={
+    role = models.CharField(choices=ROLE_CHOICES, max_length=12, error_messages={
         'required': "Role must be provided"
     })
     gender = models.CharField(choices=GENDER_CHOICES, max_length=10, blank=True, null=True, default="")

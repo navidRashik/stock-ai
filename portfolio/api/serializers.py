@@ -1,6 +1,12 @@
 from rest_framework import serializers
 
-from portfolio.models import Portfolio, Transaction, Stock
+from portfolio.models import Portfolio, Transaction, Stock, TickerUpdate
+
+
+class QuotesSerializer(serializers.ModelSerializer):
+   class Meta:
+        model = TickerUpdate
+        fields = "__all__"
 
 
 class StockSerializer(serializers.ModelSerializer):

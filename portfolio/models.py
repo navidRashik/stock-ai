@@ -32,8 +32,20 @@ class Ticker(models.Model):
     """
 
     """
-    symbol = models.CharField(_('SYMBOL'), max_length=15)         
+    symbol = models.CharField(_('SYMBOL'), max_length=15)
 
+class TickerUpdate(models.Model):
+    ticker = models.ForeignKey(Ticker, on_delete=models.CASCADE)
+    ltp = models.FloatField(blank=True)
+    high = models.FloatField(blank=True)
+    low = models.FloatField(blank=True)
+    close = models.FloatField(blank=True)
+    ycp = models.FloatField(blank=True)
+    change = models.FloatField(blank=True)
+    trade = models.IntegerField()
+    value = models.FloatField(blank=True)
+    volume = models.IntegerField()
+    updated_at = models.DateTimeField(_('Updated at'), auto_now_add=True)     
 
 class Stock(models.Model):
     """

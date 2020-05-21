@@ -1,4 +1,6 @@
-from bdshare import get_current_trade_data
+import ast
+import datetime as dt
+from bdshare import get_current_trade_data, get_basic_hist_data
 
 from rest_framework import viewsets, permissions, generics
 from rest_framework.response import Response
@@ -8,11 +10,12 @@ from django.shortcuts import get_object_or_404
 from django.contrib.auth.models import User
 from django.http import JsonResponse
 
-from portfolio.models import Portfolio, Transaction, Stock
+from portfolio.models import Portfolio, Transaction, Stock, TickerUpdate
 from portfolio.permissions import IsOwnerOrReadOnly, IsPortfolioOwnerOrReadOnly
 from accounts.api.serializers import UserSerializer
 from portfolio.api.serializers import TransactionSerializer, StockSerializer
 from portfolio.api.serializers import PortfolioSerializer
+from portfolio.api.serializers import QuotesSerializer
 
 
 class GetQuotes(APIView):
@@ -26,9 +29,48 @@ class GetQuotes(APIView):
             quotes = get_current_trade_data()
         else:
             quotes = get_current_trade_data(str(tickers))
-        quotes = quotes.to_json(orient='records', lines=True, compression='gzip')
-        return JsonResponse(quotes, safe=False)
+        # if(quotes):
+        #     quotes = quotes(orient='records', lines=True, compression='gzip')
+        #     _, created = TickerUpdate.objects.update_or_create()
+        #     dbquotes = TickerUpdate.objects.all()
+        #     results = QuotesSerializer(dbquotes, many=True).data
+        # else:
+        #     dbquotes = TickerUpdate.objects.all()
+        #     results = QuotesSerializer(dbquotes, many=True).data
+        quotes = quotes.to_json(orient='records', compression='gzip')
+        return Response(ast.literal_eval(quotes))
 
+
+class GetStocks(APIView):
+    """
+    /api/stocks/<tickers>/
+        GET: Get quote information on a list of tickers. Returns JSON response of a dict with keys
+        being tickers and values being a dict of quote information.
+    """
+    def get(self, request, tickers):
+        end = dt.datetime.now().date()
+        if (tickers=='all'):
+            his_data = get_basic_hist_data('2008-01-01', end)
+        else:
+            his_data = get_basic_hist_data('2008-01-01', end, code=str(tickers))
+        his_data = his_data.to_json(orient='records', compression='gzip')
+        return Response(ast.literal_eval(his_data))
+
+
+class GetStocksTSV(APIView):
+    """
+    /api/stocks/<tickers>/
+        GET: Get quote information on a list of tickers. Returns JSON response of a dict with keys
+        being tickers and values being a dict of quote information.
+    """
+    def get(self, request, tickers):
+        end = dt.datetime.now().date()
+        if (tickers=='all'):
+            his_data = get_basic_hist_data('2008-01-01', end)
+        else:
+            his_data = get_basic_hist_data('2008-01-01', end, code=str(tickers))
+        his_data = his_data.to_csv(sep='\t', index=False, compression='gzip')
+        return Response(his_data)
 
 class PortfolioViewSet(viewsets.ModelViewSet):
     """
