@@ -1,6 +1,6 @@
 #=================================================#
 # Common
-Django
+Django==2.2
 django-cors-headers
 django-elasticsearch-dsl
 djangorestframework
@@ -8,13 +8,13 @@ djangorestframework-simplejwt
 whitenoise
 pytz
 requests
-psycopg2
+psycopg2-binary
 openapi-codec
 coreapi
 gunicorn
 
 # others
-django_heroku
+# django_heroku
 
 
 #=================================================#
@@ -35,7 +35,7 @@ backtraderbd
 
 #=================================================#
 # Asynchronous Process
-celery
+celery==4.4.1
 channels-redis
 channels
 daphne
