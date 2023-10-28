@@ -5,10 +5,10 @@ FROM python:3.9
 WORKDIR /app
 
 # Copy the requirements.txt file to the working directory
-COPY requirements.txt .
+COPY newreq.txt .
 
 # Install the project dependencies
-RUN pip install --no-cache -r requirements.txt
+RUN pip install --upgrade pip && pip install -r newreq.txt
 
 # Copy the rest of the project files to the working directory
 COPY . .

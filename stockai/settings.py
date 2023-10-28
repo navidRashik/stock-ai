@@ -29,7 +29,7 @@ SECRET_KEY = "r^q2y!0skd=t!z$ig5^psljjdndswe)02b80f8im1kkra1br2)4"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
+ALLOWED_HOSTS = ["127.0.0.1", "localhost", "0.0.0.0"]
 
 AUTH_USER_MODEL = "accounts.user"
 
@@ -67,8 +67,8 @@ INSTALLED_APPS = [
 
 # Celery settings
 # CELERY_BROKER_URL = 'amqp://localhost'
-CELERY_BROKER_URL = "redis://localhost:6379"
-CELERY_RESULT_BACKEND = "redis://localhost:6379"
+CELERY_BROKER_URL = "redis://redis:6379"
+CELERY_RESULT_BACKEND = "redis://redis:6379"
 
 # for security reasons, mention the list of accepted content-types (in this case json)
 CELERY_ACCEPT_CONTENT = ["json"]
@@ -81,7 +81,7 @@ CELERY_BEAT_SCHEDULER = "django_celery_beat.schedulers:DatabaseScheduler"
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://localhost:6379",
+        "LOCATION": "redis://redis:6379",
         "OPTIONS": {"CLIENT_CLASS": "django_redis.client.DefaultClient"},
     }
 }

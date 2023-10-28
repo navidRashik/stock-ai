@@ -14,7 +14,7 @@ def back_test(stock):
     :return: None
     """
 
-    task = btasks.Task(bsm.MATrendStrategy, stock)
+    task = btasks.Task(bsm.MACDStrategy, stock)
     result = task.task()
 
     stock_id = result.get("stock_id")
